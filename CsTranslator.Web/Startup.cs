@@ -53,6 +53,7 @@ namespace CsTranslator.Web
 			var container = new ContainerBuilder();
 			container.Populate(services);
 			container.RegisterModule(new ApplicationModule());
+			container.RegisterModule(new MediatrModule());
 			return new AutofacServiceProvider(container.Build());
 		}
 
