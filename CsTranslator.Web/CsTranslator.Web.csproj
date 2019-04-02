@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CsTranslator.Application\CsTranslator.Application.csproj" />
+    <ProjectReference Include="..\CsTranslator.Infrastructure\CsTranslator.Infrastructure.csproj" />
     <ProjectReference Include="..\CsTranslator.Persistence\CsTranslator.Persistence.csproj" />
   </ItemGroup>
 

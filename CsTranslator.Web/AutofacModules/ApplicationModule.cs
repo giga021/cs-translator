@@ -2,13 +2,11 @@
 using CsTranslator.Application;
 using CsTranslator.Domain.Seedwork;
 using CsTranslator.Persistence.Context;
+using Google.Cloud.Translation.V2;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CsTranslator.Web.AutofacModules
 {
@@ -29,6 +27,8 @@ namespace CsTranslator.Web.AutofacModules
 				return optionsBuilder.Options;
 			}).SingleInstance();
 			builder.RegisterType<TranslatorDbContext>().InstancePerLifetimeScope().AsSelf().As<IUnitOfWork>();
+
+			builder.Register(c => TranslationClient.CreateFromApiKey(c.Resolve<IOptions<AppSettings>>().Value.GoogleTranslateKey)).SingleInstance();
 		}
 	}
 }

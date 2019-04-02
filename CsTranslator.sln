@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsTranslator.Domain", "CsTr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsTranslator.Persistence", "CsTranslator.Persistence\CsTranslator.Persistence.csproj", "{435BAFF6-DA29-4F08-92D9-F420DAE97E15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsTranslator.Application", "CsTranslator.Application\CsTranslator.Application.csproj", "{9EAB09F3-BB65-43AD-87DC-04527115684A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsTranslator.Application", "CsTranslator.Application\CsTranslator.Application.csproj", "{9EAB09F3-BB65-43AD-87DC-04527115684A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsTranslator.Infrastructure", "CsTranslator.Infrastructure\CsTranslator.Infrastructure.csproj", "{51C1A4A6-98F8-403F-BFD2-B5FDFD621EE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9EAB09F3-BB65-43AD-87DC-04527115684A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EAB09F3-BB65-43AD-87DC-04527115684A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EAB09F3-BB65-43AD-87DC-04527115684A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51C1A4A6-98F8-403F-BFD2-B5FDFD621EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51C1A4A6-98F8-403F-BFD2-B5FDFD621EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51C1A4A6-98F8-403F-BFD2-B5FDFD621EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51C1A4A6-98F8-403F-BFD2-B5FDFD621EE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
