@@ -19,8 +19,6 @@ namespace CsTranslator.Infrastructure.Services
 		{
 			if (string.IsNullOrEmpty(query))
 				throw new ArgumentNullException(nameof(query));
-			if (string.IsNullOrEmpty(fromLanguage))
-				throw new ArgumentNullException(nameof(fromLanguage));
 			if (string.IsNullOrEmpty(toLanguage))
 				throw new ArgumentNullException(nameof(toLanguage));
 

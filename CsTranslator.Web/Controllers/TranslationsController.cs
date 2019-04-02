@@ -1,4 +1,6 @@
-﻿using CsTranslator.Web.Dto;
+﻿using CsTranslator.Application.Queries.Translate;
+using CsTranslator.Web.Dto;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -10,10 +12,26 @@ namespace CsTranslator.Web.Controllers
 	[ApiController]
 	public class TranslationsController : ControllerBase
 	{
+		private readonly IMediator _mediator;
+
+		public TranslationsController(IMediator mediator)
+		{
+			_mediator = mediator;
+		}
+
 		[HttpGet]
 		public async Task<ActionResult<TranslationResultDto>> Translate([FromQuery][Required]string translationQuery)
 		{
-			return Ok(new TranslationResultDto(DateTime.Now.Ticks.ToString()));
+			try
+			{
+				var result = await _mediator.Send(new TranslateQuery(translationQuery, null, null));
+				var dto = new TranslationResultDto(result.TranslatedText);
+				return Ok(dto);
+			}
+			catch (Exception exc)
+			{
+				return BadRequest(new TranslationResultDto { ErrorMessage = exc.Message });
+			}
 		}
 	}
 }
