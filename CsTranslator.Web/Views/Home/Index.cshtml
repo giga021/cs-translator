@@ -7,6 +7,8 @@
           data-ajax-method="get"
           data-ajax-success="submitSuccess"
           data-ajax-failure="submitFailure"
+          data-ajax-begin="submitBegin"
+          data-ajax-complete="submitComplete"
           data-ajax-url="@Url.Action("Translate", "Translations")">
         <div class="form-group">
             <input autofocus class="form-control" asp-for="TranslationQuery" aria-describedby="queryHelp">
@@ -22,7 +24,9 @@
                 }
             </small>
         </div>
-        <button type="submit" class="btn btn-primary">Translate</button>
+        <button id="btnSubmit" class="btn btn-primary" type="submit">
+            <span id="btnLoading" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>Translate
+        </button>
     </form>
     <h1 class="display-5 translated-text-result">Translated text</h1>
     <h4 id="translated" />
@@ -35,6 +39,14 @@
         }
         function submitFailure(error) {
             console.error('submitFailure', error);
+        }
+        function submitBegin() {
+            $('#btnSubmit').prop('disabled', true);
+            $('#btnLoading').removeClass('d-none');
+        }
+        function submitComplete() {
+            $('#btnSubmit').prop('disabled', false);
+            $('#btnLoading').addClass('d-none');
         }
     </script>
 }
