@@ -3,6 +3,9 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
+using Serilog.Events;
+using System;
 
 namespace CsTranslator.Web
 {
@@ -10,14 +13,34 @@ namespace CsTranslator.Web
 	{
 		public static void Main(string[] args)
 		{
-			var host = CreateWebHostBuilder(args).Build();
-			InitializeDatabase(host);
-			host.Run();
+			Log.Logger = new LoggerConfiguration()
+			   .MinimumLevel.Debug()
+			   .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+			   .Enrich.FromLogContext()
+			   .WriteTo.Console()
+			   .WriteTo.RollingFile("translator.log")
+			   .CreateLogger();
+
+			try
+			{
+				Log.Information("Starting web host");
+				var host = CreateWebHostBuilder(args).Build();
+				InitializeDatabase(host);
+				host.Run();
+			}
+			catch (Exception ex)
+			{
+				Log.Fatal(ex, "Host terminated unexpectedly");
+			}
+			finally
+			{
+				Log.CloseAndFlush();
+			}
 		}
 
 		public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 		{
-			return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+			return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>().UseSerilog();
 		}
 
 		private static void InitializeDatabase(IWebHost host)
