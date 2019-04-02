@@ -1,5 +1,6 @@
 ﻿using CsTranslator.Domain.Entities;
 using CsTranslator.Domain.Seedwork;
+using CsTranslator.Persistence.EntityConfigurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
@@ -13,6 +14,11 @@ namespace CsTranslator.Persistence.Context
 			: base(options)
 		{
 
+		}
+
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			builder.ApplyConfiguration(new TranslationConfig());
 		}
 
 		public async Task SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
