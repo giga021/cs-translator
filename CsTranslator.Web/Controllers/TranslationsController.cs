@@ -1,4 +1,4 @@
-﻿using CsTranslator.Application.Queries.Translate;
+﻿using CsTranslator.Application.Queries;
 using CsTranslator.Web.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

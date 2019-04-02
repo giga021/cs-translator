@@ -1,4 +1,5 @@
 ﻿using CsTranslator.Application.Dto;
+using CsTranslator.Application.Queries;
 using CsTranslator.Application.Services;
 using CsTranslator.Domain.Entities;
 using CsTranslator.Domain.Repositories;
@@ -9,7 +10,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CsTranslator.Application.Queries.Translate
+namespace CsTranslator.Application.QueryHandlers
 {
 	public class TranslateQueryHandler : IRequestHandler<TranslateQuery, TranslateResult>
 	{

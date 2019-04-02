@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CsTranslator.Application.Queries.Translate
+namespace CsTranslator.Application.Queries
 {
 	public class TranslateQuery : IRequest<TranslateResult>
 	{

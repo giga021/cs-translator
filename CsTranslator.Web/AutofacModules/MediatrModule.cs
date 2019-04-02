@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using CsTranslator.Application.Queries.Translate;
+using CsTranslator.Application.QueryHandlers;
 using MediatR;
 using System.Reflection;
 
