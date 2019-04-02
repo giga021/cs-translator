@@ -1,6 +1,9 @@
-﻿using CsTranslator.Application;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using CsTranslator.Application;
 using CsTranslator.Domain.Entities;
 using CsTranslator.Persistence.Context;
+using CsTranslator.Web.AutofacModules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace CsTranslator.Web
 {
@@ -23,7 +27,7 @@ namespace CsTranslator.Web
 		public IConfiguration Configuration { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services)
+		public IServiceProvider ConfigureServices(IServiceCollection services)
 		{
 			services.Configure<AppSettings>(Configuration);
 			services.Configure<CookiePolicyOptions>(options =>
@@ -33,13 +37,15 @@ namespace CsTranslator.Web
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
-			services.AddDbContext<TranslatorDbContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
 			services.AddDefaultIdentity<ApplicationUser>()
 				.AddDefaultUI(UIFramework.Bootstrap4)
 				.AddEntityFrameworkStores<TranslatorDbContext>();
-
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+			var container = new ContainerBuilder();
+			container.Populate(services);
+			container.RegisterModule(new ApplicationModule());
+			return new AutofacServiceProvider(container.Build());
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
