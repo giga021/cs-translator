@@ -49,6 +49,7 @@ namespace CsTranslator.Web
 			{
 				options.AccessDeniedPath = "/Account/Login";
 			});
+			services.AddHttpContextAccessor();
 
 			var container = new ContainerBuilder();
 			container.Populate(services);

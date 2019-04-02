@@ -10,6 +10,8 @@ namespace CsTranslator.Persistence.Context
 {
 	public class TranslatorDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>, IUnitOfWork
 	{
+		public DbSet<Translation> Translations { get; set; }
+
 		public TranslatorDbContext(DbContextOptions<TranslatorDbContext> options)
 			: base(options)
 		{
@@ -18,6 +20,7 @@ namespace CsTranslator.Persistence.Context
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
+			base.OnModelCreating(builder);
 			builder.ApplyConfiguration(new TranslationConfig());
 		}
 

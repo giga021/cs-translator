@@ -1,9 +1,12 @@
 ﻿using Autofac;
 using CsTranslator.Application;
 using CsTranslator.Application.Services;
+using CsTranslator.Domain.Repositories;
 using CsTranslator.Domain.Seedwork;
 using CsTranslator.Infrastructure.Services;
 using CsTranslator.Persistence.Context;
+using CsTranslator.Persistence.Repositories;
+using CsTranslator.Web.Services;
 using Google.Cloud.Translation.V2;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -32,6 +35,8 @@ namespace CsTranslator.Web.AutofacModules
 
 			builder.Register(c => TranslationClient.CreateFromApiKey(c.Resolve<IOptions<AppSettings>>().Value.GoogleTranslateKey)).SingleInstance();
 			builder.RegisterType<GoogleTranslateService>().As<ITranslateService>();
+			builder.RegisterType<TranslationRepository>().As<ITranslationRepository>();
+			builder.RegisterType<IdentityService>().As<IIdentityService>();
 		}
 	}
 }
