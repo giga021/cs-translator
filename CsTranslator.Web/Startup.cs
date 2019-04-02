@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,7 +41,14 @@ namespace CsTranslator.Web
 			services.AddDefaultIdentity<ApplicationUser>()
 				.AddDefaultUI(UIFramework.Bootstrap4)
 				.AddEntityFrameworkStores<TranslatorDbContext>();
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddMvc(options =>
+			{
+				options.Filters.Add(new AuthorizeFilter());
+			}).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.ConfigureApplicationCookie(options =>
+			{
+				options.AccessDeniedPath = "/Account/Login";
+			});
 
 			var container = new ContainerBuilder();
 			container.Populate(services);
