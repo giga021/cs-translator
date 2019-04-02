@@ -1,4 +1,5 @@
-﻿using CsTranslator.Domain.Entities;
+﻿using CsTranslator.Application;
+using CsTranslator.Domain.Entities;
 using CsTranslator.Persistence.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,16 +25,16 @@ namespace CsTranslator.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.Configure<AppSettings>(Configuration);
 			services.Configure<CookiePolicyOptions>(options =>
 			{
 				// This lambda determines whether user consent for non-essential cookies is needed for a given request.
-				options.CheckConsentNeeded = context => true;
+				options.CheckConsentNeeded = context => false;
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
 			services.AddDbContext<TranslatorDbContext>(options =>
-				options.UseSqlServer(
-					Configuration.GetConnectionString("DefaultConnection")));
+				options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
 			services.AddDefaultIdentity<ApplicationUser>()
 				.AddDefaultUI(UIFramework.Bootstrap4)
 				.AddEntityFrameworkStores<TranslatorDbContext>();
