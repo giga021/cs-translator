@@ -1,8 +1,21 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model TranslateViewModel
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-5">Enter text to translate</h1>
+    <form>
+        <div class="form-group">
+            <input autofocus class="form-control" name="query" id="queryInput" aria-describedby="queryHelp">
+            <small id="queryHelp" class="form-text text-muted">
+                @if (string.IsNullOrEmpty(Model.SourceLanguage))
+                {
+                    <span>Input language will automatically be detected</span>
+                }
+                else
+                {
+                    <span>Expected input language: <strong>@Model.SourceLanguage</strong></span>
+                }
+            </small>
+        </div>
+        <button type="submit" class="btn btn-primary">Translate</button>
+    </form>
 </div>
