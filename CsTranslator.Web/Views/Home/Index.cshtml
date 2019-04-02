@@ -2,9 +2,15 @@
 
 <div class="text-center">
     <h1 class="display-5">Enter text to translate</h1>
-    <form>
+    <form method="get"
+          data-ajax="true"
+          data-ajax-method="get"
+          data-ajax-success="submitSuccess"
+          data-ajax-failure="submitFailure"
+          data-ajax-url="@Url.Action("Translate", "Translations")">
         <div class="form-group">
-            <input autofocus class="form-control" name="query" id="queryInput" aria-describedby="queryHelp">
+            <input autofocus class="form-control" asp-for="TranslationQuery" aria-describedby="queryHelp">
+            <span asp-validation-for="TranslationQuery" class="text-danger"></span>
             <small id="queryHelp" class="form-text text-muted">
                 @if (string.IsNullOrEmpty(Model.SourceLanguage))
                 {
@@ -18,4 +24,17 @@
         </div>
         <button type="submit" class="btn btn-primary">Translate</button>
     </form>
+    <h1 class="display-5 translated-text-result">Translated text</h1>
+    <h4 id="translated" />
 </div>
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function submitSuccess(data) {
+            $('#translated').html(data.translatedText);
+        }
+        function submitFailure(error) {
+            console.error('submitFailure', error);
+        }
+    </script>
+}
